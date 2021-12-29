@@ -6,7 +6,7 @@
 #    By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/28 03:39:26 by tnard             #+#    #+#              #
-#    Updated: 2021/12/28 04:02:30 by tnard            ###   ########lyon.fr    #
+#    Updated: 2021/12/29 19:23:39 by tnard            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ RED			= \033[0;31m
 RST			= \033[0m
 END			= \e[0m
 
-SRCS		= main.c srcs/ft_init.c srcs/ft_check_arg.c srcs/ft_atoi.c
+SRCS		= main.c srcs/ft_get_time.c srcs/ft_sleep.c srcs/ft_think.c srcs/ft_thread.c srcs/ft_eat.c srcs/ft_init.c srcs/ft_check_arg.c srcs/ft_atoi.c
 
-NAME		= philo
+NAME		= philo_one
 OBJS_DIR	= objs/
 OBJS		= $(SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
