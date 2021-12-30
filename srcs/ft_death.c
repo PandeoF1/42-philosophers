@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sleep.c                                         :+:      :+:    :+:   */
+/*   ft_death.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/29 17:16:20 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/30 02:06:56 by tnard            ###   ########lyon.fr   */
+/*   Created: 2021/12/29 21:02:53 by tnard             #+#    #+#             */
+/*   Updated: 2021/12/30 02:06:38 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_msleep(int ms)
+int	ft_death(t_philo *philo)
 {
-	unsigned int	x;
+	t_philos		*tmp;
 	unsigned int	time;
 
-	time = get_time();
-	x = time;
-	while (x < time + ms)
-	{	
-		x = get_time();
-		usleep(1);
+	tmp = philo->philos;
+	while (tmp)
+	{
+		time = get_time();
+		if (tmp->time_to_die + (unsigned int)philo->time_to_die < time)
+		{
+			pthread_mutex_lock(&philo->print);
+			ft_printf("%u %d died\n", time - philo->start,
+				tmp->id, tmp->time_to_die + philo->time_to_die, time);
+			pthread_mutex_unlock(&philo->print);
+			philo->status = -1;
+			return (0);
+		}
+		tmp = tmp->next;
 	}
-}
-
-void	ft_sleep(t_philos *philo)
-{
-	pthread_mutex_lock(&philo->master->print);
-	ft_printf("%u %d is sleeping\n", get_time() - philo->master->start,
-		philo->id);
-	pthread_mutex_unlock(&philo->master->print);
-	ft_msleep(philo->master->time_to_sleep);
-	philo->status = 2;
+	return (1);
 }
