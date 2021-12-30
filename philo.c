@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:41:56 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/30 05:16:41 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 06:05:22 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,23 @@
 long	ft_atol(char *str)
 {
 	long	res;
-	int		sign;
 
 	res = 0;
-	sign = 1;
 	while (*str && *str >= '0' && *str <= '9')
 		res = res * 10 + *str++ - '0';
-	return (res * sign);
+	return (res);
 }
 
 int	ft_atoi(char *str)
 {
-	int	i;
 	int	nb;
-	int	neg;
+	int	i;
 
-	i = 0;
 	nb = 0;
-	neg = 1;
-	if (str[i] == '-')
-	{
-		i++;
-		neg = -1;
-	}
+	i = 0;
 	while (str[i] != '\0')
-	{
-		nb = nb * 10 + str[i] - '0';
-		i++;
-	}
-	return (nb * neg);
+		nb = nb * 10 + str[i++] - '0';
+	return (nb);
 }
 
 int	ft_check_arg(int argc, char *argv[])
