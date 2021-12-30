@@ -6,11 +6,19 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 14:54:33 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/30 02:27:19 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 05:22:12 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int64_t	get_time(void)
+{
+	static struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
+}
 
 void	ft_free(t_philo *philo)
 {
