@@ -6,24 +6,26 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 17:01:27 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/30 05:22:56 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2021/12/31 15:56:16 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_msleep(int ms)
+void	ft_msleep(int ms, t_philos *philos)
 {
 	int64_t	x;
 	int64_t	time;
 
 	time = get_time();
 	x = time;
-	while (x < time + ms)
+	while (x < time + ms && philos->master->status != -1)
 	{	
 		x = get_time();
 		usleep(10);
 	}
+	if (philos->master->status == -1)
+		exit(0);
 }
 
 int	ft_death(t_philo *philo)
@@ -38,7 +40,7 @@ int	ft_death(t_philo *philo)
 		if (tmp->time_to_die + (int64_t)philo->time_to_die < time)
 		{
 			pthread_mutex_lock(&philo->print);
-			ft_printf("%u %d died\n", time - philo->start,
+			ft_printf("%u %d died", time - philo->start,
 				tmp->id, tmp->time_to_die + philo->time_to_die, time);
 			pthread_mutex_unlock(&philo->print);
 			philo->status = -1;
@@ -51,11 +53,15 @@ int	ft_death(t_philo *philo)
 
 void	ft_eat(t_philos *philo, unsigned int a)
 {
-	while (philo->master->nb_fork < 2)
+	while (philo->master->nb_fork < 2 && philo->master->status != -1)
 		usleep(10);
 	philo->master->nb_fork -= 2;
 	a = get_time();
+	if (philo->master->status == -1)
+		exit(0);
 	pthread_mutex_lock(&philo->master->print);
+	if (philo->master->status == -1)
+		exit(0);
 	ft_printf("%u %d has taken a fork\n", get_time() - philo->master->start,
 		philo->id);
 	ft_printf("%u %d has taken a fork\n", get_time() - philo->master->start,
@@ -63,7 +69,7 @@ void	ft_eat(t_philos *philo, unsigned int a)
 	ft_printf("%u %d is eating\n", get_time() - philo->master->start,
 		philo->id);
 	pthread_mutex_unlock(&philo->master->print);
-	ft_msleep(philo->master->time_to_eat);
+	ft_msleep(philo->master->time_to_eat, philo);
 	philo->time_to_die = get_time();
 	philo->master->nb_fork += 2;
 	philo->status = 1;
@@ -73,6 +79,8 @@ void	ft_eat(t_philos *philo, unsigned int a)
 void	ft_think(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->master->print);
+	if (philo->master->status == -1)
+		exit(0);
 	ft_printf("%u %d is thinking\n", get_time() - philo->master->start,
 		philo->id);
 	pthread_mutex_unlock(&philo->master->print);
@@ -82,9 +90,11 @@ void	ft_think(t_philos *philo)
 void	ft_sleep(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->master->print);
+	if (philo->master->status == -1)
+		exit(0);
 	ft_printf("%u %d is sleeping\n", get_time() - philo->master->start,
 		philo->id);
 	pthread_mutex_unlock(&philo->master->print);
-	ft_msleep(philo->master->time_to_sleep);
+	ft_msleep(philo->master->time_to_sleep, philo);
 	philo->status = 2;
 }
