@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:41:56 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/30 06:05:22 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/01/02 01:55:46 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	main(int argc, char *argv[])
 {
 	t_philo		philo;
 
-	if ((argc == 6 || argc == 5) && ft_check_arg(argc, argv))
+	if ((argc == 6 || argc == 5) && ft_check_arg(argc, argv)
+		&& ft_atol(argv[1]) != 0)
 	{
 		ft_init(&philo, argc, argv);
 		ft_create_thread(&philo);

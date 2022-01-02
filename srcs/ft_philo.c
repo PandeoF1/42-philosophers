@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 17:01:27 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/31 15:56:16 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/01/02 01:56:21 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_death(t_philo *philo)
 		if (tmp->time_to_die + (int64_t)philo->time_to_die < time)
 		{
 			pthread_mutex_lock(&philo->print);
-			ft_printf("%u %d died", time - philo->start,
+			ft_printf("%u %d died\n", time - philo->start,
 				tmp->id, tmp->time_to_die + philo->time_to_die, time);
 			pthread_mutex_unlock(&philo->print);
 			philo->status = -1;
