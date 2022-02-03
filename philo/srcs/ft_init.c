@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 04:02:22 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/29 23:55:37 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 12:59:48 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_init(t_philo *philo, int argc, char **argv)
 {
 	philo->status = 0;
+	pthread_mutex_init(&philo->eat, NULL);
 	philo->count_eat = 0;
 	philo->nb_fork = ft_atoi(argv[1]);
 	pthread_mutex_init(&philo->print, NULL);
@@ -32,4 +33,22 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 		ft_printf("Error: malloc\n");
 		exit(0);
 	}
+}
+
+void	ft_config_last(t_philos **philo)
+{
+	t_philos	*tmp;
+	int			i;
+
+	tmp = (*philo);
+	i = 0;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (i != 0)
+		(*philo)->fork_left = &tmp->fork_right;
+	else
+		(*philo)->fork_left = NULL;
 }

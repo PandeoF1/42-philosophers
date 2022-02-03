@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:41:56 by tnard             #+#    #+#             */
-/*   Updated: 2022/01/02 01:55:46 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 12:43:55 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	main(int argc, char *argv[])
 		&& ft_atol(argv[1]) != 0)
 	{
 		ft_init(&philo, argc, argv);
-		ft_create_thread(&philo);
+		ft_create_thread(&philo, 1);
+		ft_config_last(&philo.philos);
 		philo.start = get_time();
 		philo.status = 1;
 		while (ft_death(&philo) && philo.status != -1

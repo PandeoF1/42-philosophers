@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 14:54:33 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/30 18:19:56 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 12:43:49 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,15 @@ void	*ft_thread(void *ph)
 	return (NULL);
 }
 
-void	ft_create_thread(t_philo *philo)
+void	ft_create_thread(t_philo *philo, int i)
 {
 	t_philos	*philos;
-	int			i;
 
 	philos = malloc(sizeof(t_philos));
-	i = 1;
 	philo->philos = philos;
 	philos->id = i;
 	philos->time_to_die = get_time();
+	pthread_mutex_init(&philos->fork_right, NULL);
 	philos->master = philo;
 	if (pthread_create(&philo->thread[i], NULL, ft_thread, (void *)philos))
 		ft_printf("Error: pthread_create\n");
@@ -91,6 +90,8 @@ void	ft_create_thread(t_philo *philo)
 	{
 		philos->next = malloc(sizeof(t_philos));
 		philos->next->id = i;
+		pthread_mutex_init(&philos->next->fork_right, NULL);
+		philos->next->fork_left = &philos->fork_right;
 		philos->next->time_to_die = get_time();
 		philos->next->master = philo;
 		philos = philos->next;

@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:40:55 by tnard             #+#    #+#             */
-/*   Updated: 2021/12/31 15:34:38 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 12:59:21 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_philos
 	int64_t				id;
 	int64_t				status;
 	int64_t				time_to_die;
+	pthread_mutex_t		fork_right;
+	pthread_mutex_t		*fork_left;
 	struct s_philo		*master;
 	struct s_philos		*next;
 	struct s_philos		*prev;
@@ -41,6 +43,7 @@ typedef struct s_philo
 	int64_t				count_eat_max;
 	int64_t				count_eat;
 	int64_t				start;
+	pthread_mutex_t		eat;
 	struct s_philos		*philos;
 	pthread_t			*thread;
 }	t_philo;
@@ -48,7 +51,7 @@ typedef struct s_philo
 int				ft_check_arg(int argc, char *argv[]);
 int				ft_atoi(char *str);
 void			ft_init(t_philo *philo, int argc, char **argv);
-void			ft_create_thread(t_philo *philo);
+void			ft_create_thread(t_philo *philo, int i);
 void			ft_eat(t_philos *philo, unsigned int a);
 void			ft_sleep(t_philos *philo);
 void			ft_think(t_philos *philo);
@@ -56,5 +59,6 @@ int64_t			get_time(void);
 void			ft_msleep(int ms, t_philos *philos);
 int				ft_death(t_philo *philo);
 void			ft_free(t_philo *philo);
+void			ft_config_last(t_philos **philo);
 
 #endif
