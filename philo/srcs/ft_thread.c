@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 14:54:33 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/14 11:15:15 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 14:19:04 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_kill_me(t_philos *philo)
 		philo->id);
 	pthread_mutex_unlock(&philo->master->print);
 	philo->master->status = -1;
+	ft_printf("je suis stop\n");
 }
 
 void	*ft_thread(void *ph)
