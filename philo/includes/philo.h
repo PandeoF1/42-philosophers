@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:40:55 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/03 12:59:21 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 16:01:38 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int64_t			get_time(void);
 void			ft_msleep(int ms, t_philos *philos);
 int				ft_death(t_philo *philo);
 void			ft_free(t_philo *philo);
+void			ft_usage(void);
 void			ft_config_last(t_philos **philo);
 
 #endif

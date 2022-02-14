@@ -6,7 +6,7 @@
 #    By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/28 03:39:26 by tnard             #+#    #+#              #
-#    Updated: 2022/02/14 10:16:21 by tnard            ###   ########lyon.fr    #
+#    Updated: 2022/02/14 14:56:07 by tnard            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJS_DIR	= objs/
 OBJS		= $(SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 CC			= gcc
-CC_FLAGS	= -D_REENTRANT -Wall -Werror -Wextra #-lpthread 
+CC_FLAGS	= -Wall -Werror -Wextra#-lpthread -D_REENTRANT 
 
 $(OBJS_DIR)%.o : %.c includes/philo.h
 	@mkdir -p $(OBJS_DIR)

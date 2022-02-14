@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:41:56 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/03 12:43:55 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 16:09:09 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int	ft_check_arg(int argc, char *argv[])
 	int	j;
 
 	i = 1;
+	if (argc == 6)
+		if (ft_atol(argv[5]) <= 0)
+			return (0);
 	while (i < argc)
 	{
 		j = 0;
