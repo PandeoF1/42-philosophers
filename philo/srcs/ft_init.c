@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 04:02:22 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/14 16:02:46 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 11:41:56 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ void	ft_config_last(t_philos **philo)
 		(*philo)->fork_left = &tmp->fork_right;
 	else
 		(*philo)->fork_left = NULL;
+}
+
+void	ft_thread_min(t_philos *philos, int *x)
+{
+	if (philos->status == 0)
+		ft_eat(philos, (*x)++);
+	else if (philos->status == 1)
+		ft_sleep(philos);
+	else if (philos->status == 2)
+		ft_think(philos);
+	else if (philos->status == 3)
+		ft_kill_me(philos);
 }

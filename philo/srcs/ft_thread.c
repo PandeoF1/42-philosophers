@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 14:54:33 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/14 15:40:29 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 11:42:03 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,26 @@ void	*ft_thread(void *ph)
 	t_philos	*philos;
 	int			x;
 
-	x = 0;
+	x = -1;
 	philos = (t_philos *)ph;
 	philos->time_to_die = get_time();
 	while (philos->master->status != -1)
 	{
 		if (philos->master->status == 0)
 			usleep(10);
+		else if (x == -1 && philos->id % 2 == 0)
+		{
+			x = 0;
+			ft_think(philos);
+			ft_msleep(philos->master->time_to_eat - 1, philos);
+		}
 		else if (x == philos->master->count_eat_max)
 		{
 			philos->master->count_eat++;
 			x += 10;
 		}
-		else if (philos->status == 0)
-			ft_eat(philos, x++);
-		else if (philos->status == 1)
-			ft_sleep(philos);
-		else if (philos->status == 2)
-			ft_think(philos);
-		else if (philos->status == 3)
-			ft_kill_me(philos);
+		else
+			ft_thread_min(philos, &x);
 	}
 	return (NULL);
 }
@@ -84,7 +84,7 @@ void	ft_create_thread(t_philo *philo, int i)
 	phi->id = i;
 	pthread_mutex_init(&phi->fork_right, NULL);
 	phi->master = philo;
-	phi->status = 0;
+	phi->status = 2;
 	if (pthread_create(&philo->thread[i - 1], NULL, ft_thread, (void *)phi))
 		ft_printf("Error: pthread_create\n");
 	pthread_detach(philo->thread[i - 1]);
@@ -92,7 +92,7 @@ void	ft_create_thread(t_philo *philo, int i)
 	{
 		phi->next = malloc(sizeof(t_philos));
 		phi->next->id = i;
-		phi->next->status = 0;
+		phi->next->status = 2;
 		pthread_mutex_init(&phi->next->fork_right, NULL);
 		phi->next->fork_left = &phi->fork_right;
 		phi->next->master = philo;

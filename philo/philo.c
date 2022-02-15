@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:41:56 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/14 16:09:09 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 10:25:27 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char *argv[])
 		ft_config_last(&philo.philos);
 		philo.start = get_time();
 		philo.status = 1;
+		usleep(100);
 		while (ft_death(&philo) && philo.status != -1
 			&& philo.count_eat != philo.nb_philo)
 			usleep(10);

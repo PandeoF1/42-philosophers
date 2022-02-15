@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 17:01:27 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/14 15:36:36 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 11:11:37 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,14 @@ int	ft_death(t_philo *philo)
 
 void	ft_eat(t_philos *philo, unsigned int a)
 {
-	pthread_mutex_lock(&philo->master->eat);
-	if (philo->fork_left)
-		pthread_mutex_lock(philo->fork_left);
-	else
-		return ;
+	pthread_mutex_lock(philo->fork_left);
 	pthread_mutex_lock(&philo->master->print);
 	ft_printf("%u %d has taken a fork\n", get_time() - philo->master->start,
 		philo->id);
 	pthread_mutex_unlock(&philo->master->print);
 	pthread_mutex_lock(&philo->fork_right);
 	pthread_mutex_lock(&philo->master->print);
+	a = get_time();
 	ft_printf("%u %d has taken a fork\n", get_time() - philo->master->start,
 		philo->id);
 	ft_printf("%u %d is eating\n", get_time() - philo->master->start,
@@ -71,10 +68,8 @@ void	ft_eat(t_philos *philo, unsigned int a)
 	ft_msleep(philo->master->time_to_eat, philo);
 	philo->time_to_die = get_time();
 	philo->status = 1;
-	philo->time_to_die = get_time() + (get_time() - a);
 	pthread_mutex_unlock(&philo->fork_right);
 	pthread_mutex_unlock(philo->fork_left);
-	pthread_mutex_unlock(&philo->master->eat);
 }
 
 void	ft_think(t_philos *philo)

@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:40:55 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/14 16:01:38 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 11:41:37 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ void			ft_create_thread(t_philo *philo, int i);
 void			ft_eat(t_philos *philo, unsigned int a);
 void			ft_sleep(t_philos *philo);
 void			ft_think(t_philos *philo);
-int64_t			get_time(void);
 void			ft_msleep(int ms, t_philos *philos);
 int				ft_death(t_philo *philo);
 void			ft_free(t_philo *philo);
 void			ft_usage(void);
 void			ft_config_last(t_philos **philo);
+void			ft_thread_min(t_philos *philos, int *x);
+void			ft_kill_me(t_philos *philo);
+void			ft_free(t_philo *philo);
+int64_t			get_time(void);
 
 #endif
