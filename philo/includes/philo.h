@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:40:55 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/15 11:41:37 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 14:57:54 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <pthread.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <sys/time.h>
 
 typedef struct s_philos

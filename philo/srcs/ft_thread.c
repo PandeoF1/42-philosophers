@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 14:54:33 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/15 11:42:03 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 15:01:48 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ void	ft_free(t_philo *philo)
 void	ft_kill_me(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->master->print);
-	ft_printf("%u %d died\n", get_time() - philo->master->start,
+	printf("%lld %lld died\n", get_time() - philo->master->start,
 		philo->id);
 	pthread_mutex_unlock(&philo->master->print);
 	philo->master->status = -1;
-	ft_printf("je suis stop\n");
 }
 
 void	*ft_thread(void *ph)
@@ -86,7 +85,7 @@ void	ft_create_thread(t_philo *philo, int i)
 	phi->master = philo;
 	phi->status = 2;
 	if (pthread_create(&philo->thread[i - 1], NULL, ft_thread, (void *)phi))
-		ft_printf("Error: pthread_create\n");
+		printf("Error: pthread_create\n");
 	pthread_detach(philo->thread[i - 1]);
 	while (i++ < philo->nb_philo)
 	{
@@ -98,7 +97,7 @@ void	ft_create_thread(t_philo *philo, int i)
 		phi->next->master = philo;
 		phi = phi->next;
 		if (pthread_create(&philo->thread[i - 1], NULL, ft_thread, (void *)phi))
-			ft_printf("Error: pthread_create\n");
+			printf("Error: pthread_create\n");
 		pthread_detach(philo->thread[i - 1]);
 	}
 }

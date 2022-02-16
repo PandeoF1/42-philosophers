@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 04:02:22 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/15 11:41:56 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 14:50:57 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 	philo->thread = malloc(sizeof(pthread_t) * philo->nb_philo);
 	if (!philo->thread)
 	{
-		ft_printf("Error: malloc\n");
+		printf("Error: malloc\n");
 		exit(0);
 	}
 }
