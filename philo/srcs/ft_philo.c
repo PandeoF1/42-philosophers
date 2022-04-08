@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 17:01:27 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/16 15:05:44 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/04/08 13:12:53 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ int	ft_death(t_philo *philo)
 	while (tmp)
 	{
 		time = get_time();
+		pthread_mutex_lock(&tmp->time);
 		if (tmp->time_to_die + (int64_t)philo->time_to_die < time)
 		{
+			pthread_mutex_unlock(&tmp->time);
 			pthread_mutex_lock(&philo->print);
 			printf("%lld %lld died\n", time - philo->start, tmp->id);
 			philo->status = -1;
 			return (0);
 		}
+		pthread_mutex_unlock(&tmp->time);
 		tmp = tmp->next;
 	}
 	return (1);
@@ -66,7 +69,9 @@ void	ft_eat(t_philos *philo, unsigned int a)
 	pthread_mutex_unlock(&philo->master->print);
 	a = get_time() - a;
 	ft_msleep(philo->master->time_to_eat, philo);
+	pthread_mutex_lock(&philo->time);
 	philo->time_to_die = get_time() - a;
+	pthread_mutex_unlock(&philo->time);
 	philo->status = 1;
 	pthread_mutex_unlock(&philo->fork_right);
 	pthread_mutex_unlock(philo->fork_left);

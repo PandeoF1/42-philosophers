@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 03:40:55 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/16 14:57:54 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/04/08 13:09:21 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_philos
 	int64_t				id;
 	int64_t				status;
 	int64_t				time_to_die;
+	pthread_mutex_t		time;
 	pthread_mutex_t		fork_right;
 	pthread_mutex_t		*fork_left;
 	struct s_philo		*master;

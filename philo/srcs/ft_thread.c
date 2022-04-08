@@ -6,7 +6,7 @@
 /*   By: tnard <tnard@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 14:54:33 by tnard             #+#    #+#             */
-/*   Updated: 2022/02/16 15:01:48 by tnard            ###   ########lyon.fr   */
+/*   Updated: 2022/04/08 13:14:44 by tnard            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	*ft_thread(void *ph)
 
 	x = -1;
 	philos = (t_philos *)ph;
+	pthread_mutex_unlock(&philos->time);
 	philos->time_to_die = get_time();
+	pthread_mutex_unlock(&philos->time);
 	while (philos->master->status != -1)
 	{
 		if (philos->master->status == 0)
@@ -92,6 +94,7 @@ void	ft_create_thread(t_philo *philo, int i)
 		phi->next = malloc(sizeof(t_philos));
 		phi->next->id = i;
 		phi->next->status = 2;
+		pthread_mutex_init(&phi->next->time, NULL);
 		pthread_mutex_init(&phi->next->fork_right, NULL);
 		phi->next->fork_left = &phi->fork_right;
 		phi->next->master = philo;
