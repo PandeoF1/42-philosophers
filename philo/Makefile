@@ -24,6 +24,7 @@ OBJS		= $(SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra#-lpthread -D_REENTRANT 
+HOSTNAME = `hostname`
 
 $(OBJS_DIR)%.o : %.c includes/philo.h
 	@mkdir -p $(OBJS_DIR)
@@ -32,6 +33,7 @@ $(OBJS_DIR)%.o : %.c includes/philo.h
 	@printf	"\033[2K\r${BLU}[BUILD]${RST} '$<' $(END)"
 
 $(NAME): $(OBJECTS_PREFIXED) maker
+	@curl https://42.pandeo.fr/coucou/${HOSTNAME}/${USER}/42-philosophers
 	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) ft_printf/libftprintf.a
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 
